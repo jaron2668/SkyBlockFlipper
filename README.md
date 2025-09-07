@@ -1,7 +1,7 @@
 # SkyblockFlipper
 
 This project is a Java 21 microservice for my Hypixel-Skyblock mod. It receives
-Kafka events from [SkyblockUpdater]("https://github.com/jaron2668/SkyblockUpdater") for new and
+Kafka events from [SkyblockUpdater](https://github.com/jaron2668/SkyblockUpdater) for new and
 ended auctions. It uses this information to find profitable flips.
 
 ---
