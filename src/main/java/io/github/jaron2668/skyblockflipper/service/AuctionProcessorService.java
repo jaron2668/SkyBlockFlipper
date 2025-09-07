@@ -1,5 +1,6 @@
 package io.github.jaron2668.skyblockflipper.service;
 
+import io.github.jaron2668.skyblockflipper.Config;
 import io.github.jaron2668.skyblockflipper.util.Parser;
 import io.github.jaron2668.skyblocksharedmodels.AuctionActive;
 import io.github.jaron2668.skyblocksharedmodels.Flip;
@@ -25,9 +26,11 @@ public class AuctionProcessorService {
     private final List<UUID> activeFlips = new ArrayList<>();
 
     public void processNewAuctions(AuctionActive auction) {
-        if (!flipperEngine.isFlip(auction))
+        long estimatedProfit = flipperEngine.estimateProfit(auction);
+        float estimatedProfitPercentage = ((float)estimatedProfit / auction.getPrice());
+        if (estimatedProfit < Config.MIN_PROFIT || estimatedProfitPercentage < Config.MIN_PROFIT_PERCENTAGE)
             return;
-        Flip flip = Parser.parseFlip(auction);
+        Flip flip = Parser.parseFlip(auction, estimatedProfit);
         if (flip == null) {
             LOG.error("Parser#parseFlip returned null.");
             return;

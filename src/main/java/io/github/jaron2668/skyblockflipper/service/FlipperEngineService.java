@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class FlipperEngineService {
 
-    public boolean isFlip(AuctionActive auction) {
+    public long estimateProfit(AuctionActive auction) {
         // TODO
-        return false;
+        return 0;
     }
 
 }

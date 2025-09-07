@@ -12,6 +12,9 @@ ended auctions. It uses this information to find profitable flips.
 - Consumes Kafka events:
   - updater-newauction
   - updater-endedauction
+- Published Kafka events:
+  - flipper-newflip
+  - flipper-endedflip
 
 ---
 
