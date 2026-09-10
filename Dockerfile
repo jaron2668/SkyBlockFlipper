@@ -1,10 +1,15 @@
 # Stage 1: Build with Maven + JDK 21
 FROM maven:3.9.11-eclipse-temurin-21-alpine AS build
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-COPY THIRD-PARTY-LICENSES.txt .
-COPY LICENSE.txt .
+# Copy shared models first and install it into local repo
+COPY lib/skyblock-shared-models ./skyblock-shared-models
+RUN mvn -f ./skyblock-shared-models/pom.xml clean install -DskipTests
+
+# Copy and build the microservice
+COPY services/skyblock-flipper/pom.xml .
+COPY services/skyblock-flipper/src ./src
+COPY services/skyblock-flipper/THIRD-PARTY-LICENSES.txt .
+COPY services/skyblock-flipper/LICENSE.txt .
 RUN mvn clean package -DskipTests
 
 # Stage 2: Runtime with JDK 21
