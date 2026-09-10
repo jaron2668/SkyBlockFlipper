@@ -9,9 +9,9 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Skyblock Flipper</name>
+    <name>SkyBlock Flipper</name>
     <description>Java backend to find profitable flips in Hypixel Skyblock</description>
-    <url>https://github.com/jaron2668/SkyblockFlipper</url>
+    <url>https://github.com/jaron2668/SkyBlockFlipper</url>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -46,7 +46,7 @@
         <!-- Shared Model Classes -->
         <dependency>
             <groupId>io.github.jaron2668</groupId>
-            <artifactId>SkyblockSharedModels</artifactId>
+            <artifactId>SkyBlockSharedModels</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

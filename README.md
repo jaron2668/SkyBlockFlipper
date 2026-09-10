@@ -1,49 +1,72 @@
-# SkyblockFlipper
+# SkyBlock Flipper
 
-This project is a Java 21 microservice for my Hypixel-Skyblock mod. It receives
-Kafka events from [SkyblockUpdater](https://github.com/jaron2668/SkyblockUpdater) for new and
-ended auctions. It uses this information to find profitable flips.
+`SkyBlock Flipper` is the flip-analysis service template. It consumes auction events from `SkyBlock Updater`, evaluates them, and publishes flip events for other consumers.
 
----
+## Important: private implementation
 
-## Features
+This repository does not contain the actual flip-analysis algorithm. `skyblockflipper/service/FlipperEngineService` is intentionally left as a template and currently returns no estimated profit. Your implementation must be added locally before this service can produce meaningful flips.
 
-- A
-- Consumes Kafka events:
-  - updater-newauction
-  - updater-endedauction
-- Published Kafka events:
-  - flipper-newflip
-  - flipper-endedflip
+The surrounding Kafka consumer, publisher, persistence, and shared model integration are included so that the private engine can be connected without changing the service contract.
 
----
+## Events
 
-## Technologies & Dependencies
+The service consumes:
 
-- A
-- B
+-   `updater-newauction` - An `AuctionActive` object serialized as JSON.
+-   `updater-endedauction` - The UUID of an ended auction.
 
----
+It publishes:
 
-## Prerequisites
+-   `flipper-newflip` - A `Flip` object serialized as JSON.
+-   `flipper-endedflip` - The UUID of the auction associated with the ended flip.
 
-- A
+The topic names and message handling are implemented in `KafkaConsumerService` and `KafkaPublisherService`.
 
----
+## Requirements
 
-## Setup
+-   Java 21
+-   Maven
+-   PostgreSQL and a Kafka-compatible broker for a complete runtime
+-   Your `FlipperEngineService` implementation, if useful flip results are required
 
-### 1. Clone the repository
+## Build locally
 
-    git clone https://github.com/jaron2668/SkyblockFlipper.git
-    cd SkyblockFlipper
+Install the shared models artifact first, then build this service:
 
-### Configure flipper
+```bash
+# Run in skyblock-shared-models
+mvn clean install
 
-### 3. Build and start services
+# Run in skyblock-flipper
+mvn clean verify
+```
 
-Run the following command to build and start the SkyblockFlipper:
+The template is expected to compile with the placeholder engine, but it does not provide a usable flip strategy until the private implementation is supplied.
 
-    docker compose up --build
+## Run with Docker Compose
 
-This will:
+From the backend stack's root directory:
+
+```bash
+docker compose up --build flipper
+```
+
+The container connects to PostgreSQL at `postgres_db:5432` and Kafka at `redpanda:9092`. In normal operation, run it together with the updater so that auction events are available:
+
+```bash
+docker compose up --build updater flipper
+```
+
+View its logs with:
+
+```bash
+docker logs -f skyblock-flipper
+```
+
+## License
+
+See [LICENSE.txt](LICENSE.txt) and [THIRD-PARTY-LICENSES.txt](THIRD-PARTY-LICENSES.txt).
+
+## Disclaimer
+
+This project is not affiliated with, endorsed by, or associated with Hypixel Inc. "Hypixel" and related names are trademarks of Hypixel Inc. This is an independent community project intended for educational and personal use.
