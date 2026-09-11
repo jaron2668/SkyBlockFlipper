@@ -122,14 +122,14 @@
                 <executions>
                     <execution>
                         <id>generate-third-party</id>
-                        <phase>verify</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>add-third-party</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
-                    <outputDirectory>${project.basedir}</outputDirectory>
+                    <outputDirectory>${project.build.directory}/generated-resources</outputDirectory>
                     <thirdPartyFilename>THIRD-PARTY-LICENSES.txt</thirdPartyFilename>
                     <excludedScopes>test</excludedScopes>
                 </configuration>
@@ -153,18 +153,18 @@
         <resources>
             <!-- add licenses -->
             <resource>
-                <directory>${project.build.directory}</directory>
-                <includes>
-                    <include>THIRD-PARTY-LICENSES.txt</include>
-                </includes>
-                <targetPath>META-INF/licenses</targetPath>
-            </resource>
-            <resource>
-                <directory>${project.build.directory}</directory>
+                <directory>${project.basedir}</directory>
                 <includes>
                     <include>LICENSE.txt</include>
                 </includes>
-                <targetPath>META-INF/licenses</targetPath>
+                <targetPath>.</targetPath>
+            </resource>
+            <resource>
+                <directory>${project.build.directory}/generated-resources</directory>
+                <includes>
+                    <include>THIRD-PARTY-LICENSES.txt</include>
+                </includes>
+                <targetPath>.</targetPath>
             </resource>
         </resources>
     </build>
