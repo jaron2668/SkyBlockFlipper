@@ -65,7 +65,7 @@ docker logs -f skyblock-flipper
 
 ## License
 
-See [LICENSE.txt](LICENSE.txt) and [THIRD-PARTY-LICENSES.txt](THIRD-PARTY-LICENSES.txt).
+See [LICENSE.txt](LICENSE.txt).
 
 ## Disclaimer
 
