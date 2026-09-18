@@ -65,7 +65,7 @@ docker logs -f skyblock-flipper
 
 ## License
 
-See [LICENSE.txt](LICENSE.txt).
+This project is licensed under the **GNU General Public License v3.0 only (GPL-3.0-only)**. See [LICENSE.txt](LICENSE.txt) for the full license text.
 
 ## Disclaimer
 
