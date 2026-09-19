@@ -31,12 +31,7 @@ The topic names and message handling are implemented in `KafkaConsumerService` a
 
 ## Build locally
 
-Install the shared models artifact first, then build this service:
-
 ```bash
-# Run in skyblock-shared-models
-mvn clean install
-
 # Run in skyblock-flipper
 mvn clean verify
 ```

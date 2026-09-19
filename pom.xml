@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.jaron2668</groupId>
-    <artifactId>SkyBlockFlipper</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>skyblock-flipper</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>SkyBlock Flipper</name>
@@ -28,6 +28,10 @@
             <name>Maven Central</name>
             <url>https://repo.maven.apache.org/maven2</url>
         </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencyManagement>
@@ -45,9 +49,9 @@
     <dependencies>
         <!-- Shared Model Classes -->
         <dependency>
-            <groupId>io.github.jaron2668</groupId>
+            <groupId>com.github.jaron2668</groupId> <!-- jitpack id is different from pom -->
             <artifactId>SkyBlockSharedModels</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>v1.0.0</version>
         </dependency>
 
         <!-- Spring Boot Starter With JDBC -->
@@ -128,10 +132,29 @@
                             <goal>add-third-party</goal>
                         </goals>
                     </execution>
+                    <!-- Download the original license files -->
+                    <execution>
+                        <id>download-third-party-licenses</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>download-licenses</goal>
+                        </goals>
+                        <configuration>
+                            <licensesOutputDirectory>
+                                ${project.build.directory}/generated-resources/licenses
+                            </licensesOutputDirectory>
+
+                            <excludedScopes>test</excludedScopes>
+
+                            <includeTransitiveDependencies>true</includeTransitiveDependencies>
+
+                            <organizeLicensesByDependencies>true</organizeLicensesByDependencies>
+                        </configuration>
+                    </execution>
                 </executions>
                 <configuration>
                     <outputDirectory>${project.build.directory}/generated-resources</outputDirectory>
-                    <thirdPartyFilename>THIRD-PARTY-LICENSES.txt</thirdPartyFilename>
+                    <thirdPartyFilename>THIRD-PARTY-NOTICES.txt</thirdPartyFilename>
                     <excludedScopes>test</excludedScopes>
                 </configuration>
             </plugin>
@@ -177,9 +200,15 @@
             <resource>
                 <directory>${project.build.directory}/generated-resources</directory>
                 <includes>
-                    <include>THIRD-PARTY-LICENSES.txt</include>
+                    <include>THIRD-PARTY-NOTICES.txt</include>
                 </includes>
-                <targetPath>.</targetPath>
+                <targetPath>META-INF</targetPath>
+            </resource>
+            <resource>
+                <directory>
+                    ${project.build.directory}/generated-resources/licenses
+                </directory>
+                <targetPath>META-INF/licenses</targetPath>
             </resource>
         </resources>
     </build>
