@@ -1,3 +1,8 @@
+![Java Version](https://img.shields.io/badge/Java-21+-orange)
+![Build](https://github.com/jaron2668/SkyBlockFlipper/actions/workflows/build.yml/badge.svg)
+![Release](https://img.shields.io/github/v/release/jaron2668/SkyBlockFlipper)
+![License](https://img.shields.io/badge/License-GPLv3--only-blue)
+
 # SkyBlock Flipper
 
 `SkyBlock Flipper` is the flip-analysis service template. It consumes auction events from `SkyBlock Updater`, evaluates them, and publishes flip events for other consumers.
